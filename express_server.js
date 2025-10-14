@@ -28,3 +28,18 @@ app.get("/transaction", (req, res) => {
   const transaction = [100, 2000, 3000];
   res.json(transaction);
 });
+
+app.get("/search", (req, res) => {
+  console.log(req.query);
+
+  const id = req.query.id;
+  const name = req.query.name;
+  const age = req.query.age;
+
+  res.json({
+    allParams: req.query,
+    id: id,
+    name: name,
+    age: age,
+  });
+});
