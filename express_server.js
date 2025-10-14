@@ -2,6 +2,8 @@ const express = require("express");
 const app = express();
 const port = 3000;
 
+app.use(express.json());
+
 app.get("/", (req, res) => {
   console.log(req.headers);
   console.log(req.body);
@@ -54,4 +56,9 @@ app.get("/exo-query-string", (req, res) => {
 app.get("/get-user/:userId", (req, res) => {
   const userId = req.params.userId;
   res.send(`<h1>L'ID User est : ${userId}</h1>`);
+});
+
+app.post("/data", (req, res) => {
+  console.log(req.body);
+  res.send("Données reçues");
 });
