@@ -10,10 +10,6 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
-});
-
 app.get("/some-html", (req, res) => {
   res.send("<html><body><h1>bonjour html</h1></body></html>");
 });
@@ -61,4 +57,44 @@ app.get("/get-user/:userId", (req, res) => {
 app.post("/data", (req, res) => {
   console.log(req.body);
   res.send("Données reçues");
+});
+
+let tasks = [];
+
+app.get("/task", (req, res) => {
+  res.json(tasks);
+});
+
+app.post("/new-task", (req, res) => {
+  const newTask = {
+    id: tasks.length + 1,
+    title: req.body.title,
+    description: req.body.description,
+    isDone: req.body.isDone || false,
+  };
+  tasks.push(newTask);
+  res.status(201).json(newTask);
+});
+
+app.put("/update-task/:id", (req, res) => {
+  const taskId = parseInt(req.params.id);
+  const taskIndex = tasks.findIndex((task) => task.id === taskId);
+  tasks[taskIndex] = {
+    id: taskId,
+    title: req.body.title || tasks[taskIndex].title,
+    description: req.body.description || tasks[taskIndex].description,
+    isDone:
+      req.body.isDone !== undefined ? req.body.isDone : tasks[taskIndex].isDone,
+  };
+  res.json(tasks[taskIndex]);
+});
+
+app.delete("/delete-task/:id", (req, res) => {
+  const taskId = parseInt(req.params.id);
+  tasks = tasks.filter((task) => task.id !== taskId);
+  res.status(204).send();
+});
+
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`);
 });
