@@ -50,3 +50,8 @@ app.get("/exo-query-string", (req, res) => {
   const age = req.query.age;
   res.send(`<h1>L'âge de la personne est : ${age}</h1>`);
 });
+
+app.get("/get-user/:userId", (req, res) => {
+  const userId = req.params.userId;
+  res.send(`<h1>L'ID User est : ${userId}</h1>`);
+});
