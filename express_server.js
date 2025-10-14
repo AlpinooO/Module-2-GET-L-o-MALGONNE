@@ -43,3 +43,10 @@ app.get("/search", (req, res) => {
     age: age,
   });
 });
+
+app.get("/exo-query-string", (req, res) => {
+  console.log(req.query);
+
+  const age = req.query.age;
+  res.send(`<h1>L'âge de la personne est : ${age}</h1>`);
+});
