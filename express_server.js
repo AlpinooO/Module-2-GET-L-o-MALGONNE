@@ -4,6 +4,15 @@ const port = 3000;
 
 app.use(express.json());
 
+function loggerMiddleware(req, res, next) {
+  const timestamp = new Date().toISOString();
+  console.log(`\n=== [${timestamp}] ${req.method} ${req.url} ===`);
+  console.log("req.body APRÈS express.json():", req.body);
+  next();
+}
+
+app.use(loggerMiddleware);
+
 app.get("/", (req, res) => {
   console.log(req.headers);
   console.log(req.body);
@@ -94,6 +103,10 @@ app.delete("/delete-task/:id", (req, res) => {
   tasks = tasks.filter((task) => task.id !== taskId);
   res.status(204).send();
 });
+
+app.use(express.static("template"));
+
+app.use(express.static("public"));
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);

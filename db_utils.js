@@ -64,7 +64,6 @@ client.connect((err) => {
   }
   console.log("✅ Connecté à PostgreSQL avec succès!\n");
 
-  // TEST : Insérer un utilisateur de test
   const testUser = {
     email: "jean.dupont@exemple.fr",
   };
@@ -76,7 +75,6 @@ client.connect((err) => {
     } else {
       console.log("🎉 Test réussi ! Utilisateur inséré :", insertedUser);
 
-      // Vérifier l'insertion en récupérant tous les utilisateurs
       console.log(
         "\n📋 Vérification : récupération de tous les utilisateurs..."
       );
@@ -90,7 +88,6 @@ client.connect((err) => {
   });
 });
 
-// Exporter les fonctions
 module.exports = {
   getConnection,
   getUser,
